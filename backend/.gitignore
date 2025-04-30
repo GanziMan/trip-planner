@@ -1,0 +1,41 @@
+# Node modules
+node_modules/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Build directories
+dist/
+build/
+
+*.env
+
+# Prisma
+/prisma/dev.db
+/prisma/dev.sqlite
+/prisma/migrations/*/steps.json
+/prisma/migrations/*/migration.sql
+/prisma/migrations/*/schema.prisma
+
+# 만약 sqlite 사용 시 생성되는 파일
+*.db
+*.sqlite
+
+# 환경 변수
+.env
+.env.local
+
+# Prisma generated client
+/prisma/generated/
+/node_modules/
+*.js
+*.d.ts
+
+# Optional: ignore migration SQL steps if not needed
+/prisma/migrations/*/steps.json
+/prisma/migrations/*/migration.sql
+
+# Environment
+.env

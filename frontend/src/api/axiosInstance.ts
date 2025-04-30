@@ -1,11 +1,11 @@
 import axios from 'axios'
 
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:5000',
+  baseURL: 'http://localhost:3000',
   headers: {
     'Content-Type': 'application/json',
+    'X-Requested-With': 'XMLHttpRequest',
   },
-  timeout: 10000,
 })
 axiosInstance.interceptors.request.use(
   (config) => {
@@ -24,7 +24,10 @@ axiosInstance.interceptors.response.use(
     return response
   },
   (error) => {
-    if (error.response.status === 401) {
+    const status = error.response?.status
+    const reqUrl = error.config?.url
+    // Skip redirect for registration endpoint
+    if (status === 401 && reqUrl !== '/user/register') {
       localStorage.removeItem('token')
       window.location.href = '/login'
     }

@@ -8,10 +8,10 @@ interface RegisterUserPayload {
 }
 
 export const registerUser = createAsyncThunk(
-  'user/register',
+  '/user/register',
   async (value: RegisterUserPayload, thunkAPI) => {
     try {
-      const response = await axiosInstance.post('/api/user/register', value)
+      const response = await axiosInstance.post('/user/register', value)
 
       return response.data
     } catch (error) {

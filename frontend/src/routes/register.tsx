@@ -1,6 +1,10 @@
 import { Input } from '@/compoennts/Input'
+import { useAppDispatch } from '@/hooks/useAppDispatch'
+
+import { registerUser } from '@/store/thunkFunctions'
 import { createFileRoute } from '@tanstack/react-router'
 import { useFormik } from 'formik'
+
 export const Route = createFileRoute('/register')({
   component: RouteComponent,
 })
@@ -11,6 +15,8 @@ function RouteComponent() {
     name: '',
     password: '',
   }
+
+  const dispatch = useAppDispatch()
 
   const { errors, touched, handleChange, handleSubmit } = useFormik({
     validateOnChange: true,
@@ -35,11 +41,10 @@ function RouteComponent() {
       return errors
     },
     onSubmit: (values) => {
-      console.log(values)
+      dispatch(registerUser(values))
     },
   })
 
-  console.log(errors)
   return (
     <>
       <section className="flex flex-col justify-center mt-20 max-w-[400px] m-auto">

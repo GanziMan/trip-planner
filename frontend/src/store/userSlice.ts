@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { registerUser } from './thunkFunctions'
+import { loginUser, registerUser } from './thunkFunctions'
 import { toast } from 'react-hot-toast'
 
 const initialState = {
@@ -32,7 +32,22 @@ const userSlice = createSlice({
         state.isLoading = false
         // console.log('fafkao')
         state.error = action.payload as string
-
+        toast.error('회원가입 실패')
+      })
+      .addCase(loginUser.pending, (state) => {
+        state.isLoading = true
+      })
+      .addCase(loginUser.fulfilled, (state, action) => {
+        state.isLoading = false
+        state.userData = action.payload
+        state.isAuth = true
+        localStorage.setItem('accessToken', action.payload.accessTokenㅠㄱ)
+        toast.success('회원가입 성공')
+      })
+      .addCase(loginUser.rejected, (state, action) => {
+        state.isLoading = false
+        // console.log('fafkao')
+        state.error = action.payload as string
         toast.error('회원가입 실패')
       })
   },

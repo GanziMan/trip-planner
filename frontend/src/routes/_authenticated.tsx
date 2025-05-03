@@ -1,5 +1,8 @@
+import { useAppDispatch } from '@/hooks/useAppDispatch'
 import { useAppSelector } from '@/hooks/useAppSelector'
+import { authUser } from '@/store/thunkFunctions'
 import { createFileRoute, redirect } from '@tanstack/react-router'
+import { useEffect } from 'react'
 
 export const Route = createFileRoute('/_authenticated')({
   beforeLoad: async () => {
@@ -18,5 +21,12 @@ export const Route = createFileRoute('/_authenticated')({
 })
 
 function RouteComponent() {
+  const dispatch = useAppDispatch()
+  const isAuth = useAppSelector((state) => state.user.user.isAuth)
+  useEffect(() => {
+    if (isAuth) {
+      dispatch(authUser())
+    }
+  }, [])
   return <div>Hello "/_authenticated"!</div>
 }

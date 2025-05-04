@@ -54,21 +54,16 @@ router.post("/login", async (req: Request, res: Response) => {
       },
     });
 
-    console.log(user);
     if (!user) {
       res.status(401).json({ error: "사용자를 찾을 수 없습니다." });
       return;
     }
 
-    console.log(process.env.JWT_SECRET_KEY!);
-
     const isPasswordValid = await bcrypt.compare(
       req.body.password,
-      user!.password
+      user.password
     );
 
-    console.log("입력한 비밀번호:", req.body.password);
-    console.log("DB의 해시된 비밀번호:", user!.password);
     if (!isPasswordValid) {
       res.status(401).json({ error: "비밀번호가 일치하지 않습니다." });
       return;
@@ -100,7 +95,6 @@ router.post("/login", async (req: Request, res: Response) => {
 
 router.get("/auth", async (req: Request, res: Response) => {
   try {
-    console.log(req);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "인증에 실패했습니다." });
